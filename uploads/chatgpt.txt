@@ -1,0 +1,79 @@
+esta bien ahora dame el paso a paso a detalle para hacer ese proyecto de cero recuerda a detalle porque soy nuevo gracias
+
+
+
+Hola Dra. Patricia de Pilar Calle López,Soy Jorge Eduardo Mendoza Pacheco, estudiante de la Universidad Autónoma del Perú. Quería presentarme formalmente y compartirle que he estado trabajando en el proyecto de implementación de un sistema de inventario en el area de logística del hospital Durante todos estos meses 
+"OJO:" Usted es es la que me sello y firmo mi carta de presentacion y mi plan Metodologico y mis actas semanales,esto lo digo porque mi universidad es muy estricta con ese tema .
+Adjunto Pruebas
+
+
+
+si el de los encabezados y el permiso para solo ver los encabezados visibles del exel que se va importar y que el encabezado sea el mismo en la vista principal del crud para pode agregar o identificar de manera automática por código patrimonial de forma manual o con lector de código de barra(que identificaria el producto leyendo el código de barras pero s es el mismo del código patrimonial se incluye solo en este caso y con su detalle de los encabezados ) todos estos productos serviria a raiz del exel importado y que se pueda exportar con los cambios con todos los productos actualizados¡
+
+si quiero hacer un proyecto completo desde su registro  hasta cerrar sesion los encabezados son los siguientes Item	Nombre ,Área	,Denominación Bien	,Marca	,Modelo,	Serie	,Fecha de Adquisición	,Código Patrimonial y 	Antigüedad  y que estos sean  visibles del exel que se va importar  que tiene encabezados escondidos pero con esa orden de encabezados qeu te digo se ve primeramente y que el encabezado sea el mismo en la vista principal del crud para que peuda  agregar o identificar de manera automática por código patrimonial de forma manual o con lector de código de barra(que identificaria el producto leyendo el código de barras pero s es el mismo del código patrimonial se incluye solo en este caso y con su detalle  de informacion de los encabezados que le pide ) todos estos productos serviria a raiz del exel importado y que se pueda exportar con los cambios y encabezados ocultos  con todos los productos actualizados¡ y si en antiguedad soobrepasa los 10 años que se ponga de color rojo sea en el exel y en la pagina principal inventory.php dame el paso a paso a detalle  soy nuevo de como hacer todo ese proyecto y siguiendo la misma  estructura y logica de los codigos que ya te envie damelo por este medio 
+
+en mi exel asi estan distribuidos los encabezados A1=ITEM ,B1=NOMBRE_AREA,C1=CODIGO_FAMILIA_ACTUAL,D1=DENOMINACION_BIEN ,E1=CODIGO_FAMILIA_CORRECTO,F1=DENOMINACION,G1=TIPO,H1=MARCA , I1=MODELO,J1= SERIE,K1=FECHA_ADQUISICION,L1=CODIGO_PATRIMONIAL,M1=FECHA ACTUAL,N1=ANTIGÜEDAD HAZ LA COMPARACION CON LO QUE INICIALMENTE TE PEDI DE ENCABEZADO Y ARREGLA EL IMPOR INVENTARIO PARA QUE SOLO DETECTE LOS ENCABEZADOS QUE TE PIDO QUE SON ESTOS :ITEM, NOMBRE_AREA ,DENOMINACION_BIEN, MARCA, MODELO ,SERIE, FECHA_ADQUISICION ,CODIGO_PATRIMONIAL, FECHA_ACTUAL ,ANTIGÜEDAD
+
+
+
+
+
+
+
+
+
+
+Claro, aquí te doy el flujo completo de tu proyecto con los últimos códigos funcionales para que puedas entender cómo funciona cada parte:
+
+### Paso a Paso del Proyecto de Gestión de Inventario con CRUD y Exportación
+
+Voy a describir paso a paso el flujo completo de tu aplicación de gestión de inventario, asegurando que se entienda cómo funcionan los últimos códigos funcionales de CRUD (Agregar, Editar, Eliminar) y la exportación de datos. Esto te permitirá comprender mejor la integración de las diferentes partes del sistema.
+
+#### 1. Inicio de Sesión y Registro
+- **Inicio de sesión (`login.php`)**: Los usuarios deben iniciar sesión con sus credenciales para acceder a la aplicación. Si el usuario no está autenticado, es redirigido a esta página.
+- **Verificación de sesión**: Cada archivo PHP, como `inventory.php`, `add_product.php`, `edit_product.php`, y `delete_product.php`, verifica si el usuario ha iniciado sesión. Si no, lo redirige a `login.php`.
+
+#### 2. Visualización del Inventario (`inventory.php`)
+- **Carga de Productos**: Al ingresar a `inventory.php`, se carga la lista completa de productos desde la base de datos. Se muestra una tabla con todos los productos, incluyendo columnas como `ITEM`, `NOMBRE_AREA`, `CODIGO_FAMILIA_ACTUAL`, `DENOMINACION_BIEN`, `MARCA`, `MODELO`, `SERIE`, `FECHA_ADQUISICION`, `CODIGO_PATRIMONIAL`, etc.
+- **Búsqueda de Productos**: Se proporciona un campo de búsqueda para buscar productos mediante el `CODIGO_PATRIMONIAL`. Si el producto es encontrado, se resalta en la tabla.
+- **Botones de Acciones**: Cada producto tiene opciones para **Editar** y **Eliminar**:
+  - **Editar**: El botón de editar redirige al usuario a `edit_product.php`, enviando el ID del producto mediante `GET`.
+  - **Eliminar**: El botón de eliminar envía el ID del producto mediante `POST` a `delete_product.php`, para eliminarlo de la base de datos.
+
+#### 3. CRUD Completo
+- **Agregar Producto (`add_product.php`)**:
+  - El formulario permite agregar un nuevo producto al inventario.
+  - Antes de agregar el producto, se verifica que el `CODIGO_PATRIMONIAL` no exista ya en la base de datos.
+  - Si el producto es agregado correctamente, el usuario es redirigido a `inventory.php` con un mensaje de éxito.
+
+- **Editar Producto (`edit_product.php`)**:
+  - Cuando el usuario hace clic en el botón de "Editar" en `inventory.php`, se redirige al archivo `edit_product.php` con el ID del producto.
+  - Los datos actuales del producto se cargan en el formulario de edición para que el usuario pueda modificarlos.
+  - Al actualizar, se verifica si el `CODIGO_PATRIMONIAL` ha cambiado. Si se ha cambiado, se verifica que no sea duplicado.
+  - Si la edición es exitosa, el usuario es redirigido a `inventory.php` con un mensaje de éxito.
+
+- **Eliminar Producto (`delete_product.php`)**:
+  - Cuando se hace clic en el botón de eliminar, se envía una solicitud `POST` a `delete_product.php` con el ID del producto.
+  - Se verifica si el producto existe antes de eliminarlo.
+  - Si se elimina correctamente, el usuario es redirigido a `inventory.php` con un mensaje de éxito.
+
+#### 4. Importación y Exportación de Inventario
+- **Importar Inventario (`import_inventory.php`)**:
+  - Los usuarios pueden importar un archivo Excel con los productos del inventario. Los encabezados deben coincidir con los campos del inventario para que los datos se carguen correctamente.
+  - Si el producto ya existe (basado en el `CODIGO_PATRIMONIAL`), se actualiza con la nueva información.
+
+- **Exportar Inventario (`export_inventory.php`)**:
+  - Los usuarios pueden exportar el inventario completo a un archivo Excel.
+  - Los productos con `ANTIGÜEDAD` mayor a 10 años se resaltan en rojo para indicar que necesitan revisión o reemplazo.
+
+#### 5. Flujo General del Proyecto
+1. **Inicio de Sesión**: El usuario ingresa con sus credenciales.
+2. **Visualización del Inventario**: Se muestran todos los productos con las opciones para buscar, editar, eliminar o agregar productos.
+3. **Agregar Producto**: Se puede agregar un nuevo producto al inventario.
+4. **Editar Producto**: Se selecciona un producto existente para modificar su información.
+5. **Eliminar Producto**: Se elimina un producto del inventario.
+6. **Importar/Exportar Inventario**: Se pueden importar nuevos productos desde un archivo Excel o exportar el inventario actual.
+
+Este flujo garantiza que los usuarios puedan gestionar su inventario de manera eficiente, con la capacidad de agregar, editar, eliminar, buscar, importar y exportar productos. La aplicación está diseñada para ser intuitiva y fácil de usar, proporcionando mensajes claros al usuario para cada acción realizada.
+
+Si necesitas más detalles sobre alguna parte específica o realizar alguna modificación, házmelo saber.

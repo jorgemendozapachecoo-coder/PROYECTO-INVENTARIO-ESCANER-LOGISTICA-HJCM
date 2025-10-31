@@ -1,0 +1,118 @@
+Vamos a ajustar el sistema para incluir el nuevo campo "TIPO" y a explicar detalladamente cómo implementarlo en Excel utilizando VBA para crear un formulario de usuario atractivo. A continuación, te guiaré paso a paso para crear el sistema de inventario:
+
+### Paso 1: Preparar la Hoja de Cálculo
+
+1. **Configurar la Base de Datos:**
+   - En tu hoja de Excel llamada "Inventario", asegúrate de que los datos comiencen desde la fila 2, con los siguientes encabezados:
+"ÁREA ITEM"
+"NOMBRE ÁREA"
+"CÓDIGO PATRIMONIAL"
+"CÓDIGO FAMILIA ACTUAL - INCORRECTO"
+"DENOMINACIÓN BIEN"
+"CÓDIGO FAMILIA CORRECTO"
+"DENOMINACIÓN CORRECTA"
+"TIPO"
+"MARCA"
+"MODELO"
+"SERIE"
+"FECHA ADQUISICIÓN"
+
+2. **Generar Códigos de Barras Aleatorios:**
+   - En la columna M, agrega un encabezado "CÓDIGO DE BARRAS" en M2.
+   - Usa una fórmula para generar códigos únicos. En M3, puedes usar:
+     ```excel
+     =CONCATENATE("B", C3, TEXT(RANDBETWEEN(1000,9999),"0000"))
+     ```
+   - Arrastra esta fórmula hacia abajo para todos los productos.
+
+### Paso 2: Crear el Formulario de Usuario (UserForm)
+
+1. **Abrir el Editor de VBA:**
+   - Presiona `Alt + F11` para abrir el Editor de VBA.
+
+2. **Insertar un UserForm:**
+   - Ve a `Insertar` > `UserForm` para crear un nuevo formulario.
+
+3. **Diseñar el UserForm:**
+   - Agrega un `TextBox` (llamado `txtCodigoBarras`) para la entrada del código de barras.
+   - Agrega `Labels` para mostrar la información del producto, tales como:
+     - `lblAreaItem`
+     - `lblNombreArea`
+     - `lblCodigoPatrimonial`
+     - `lblDenominacion`
+     - `lblTipo`
+     - `lblMarca`
+     - `lblModelo`
+     - `lblSerie`
+     - `lblFechaAdquisicion`
+   - Agrega un `Button` (llamado `btnBuscar`) para ejecutar la búsqueda.
+
+4. **Personalizar el UserForm:**
+   - Cambia las propiedades de los controles (color, fuente, tamaño) para mejorar la apariencia y hacerla más atractiva.
+
+### Paso 3: Programar el UserForm en VBA
+
+1. **Escribir el Código VBA para el UserForm:**
+
+   - Haz clic derecho en el UserForm y selecciona `Ver Código`. Aquí escribe el siguiente código:
+
+```vba
+Private Sub btnBuscar_Click()
+    Dim codigo As String
+    Dim ws As Worksheet
+    Dim encontrado As Range
+    Dim fila As Integer
+
+    ' Obtener el código de barras del cuadro de texto
+    codigo = txtCodigoBarras.Text
+    Set ws = Sheets("Inventario")
+
+    ' Buscar el código de barras en la columna M a partir de la tercera fila
+    Set encontrado = ws.Range("M3:M" & ws.Cells(ws.Rows.Count, "M").End(xlUp).Row).Find(What:=codigo, LookIn:=xlValues, LookAt:=xlWhole)
+
+    If Not encontrado Is Nothing Then
+        ' Si se encuentra, mostrar la información del producto en las etiquetas
+        fila = encontrado.Row
+        lblAreaItem.Caption = "Área Item: " & ws.Cells(fila, 1).Value
+        lblNombreArea.Caption = "Nombre Área: " & ws.Cells(fila, 2).Value
+        lblCodigoPatrimonial.Caption = "Código Patrimonial: " & ws.Cells(fila, 3).Value
+        lblDenominacion.Caption = "Denominación Bien: " & ws.Cells(fila, 5).Value
+        lblTipo.Caption = "Tipo: " & ws.Cells(fila, 8).Value
+        lblMarca.Caption = "Marca: " & ws.Cells(fila, 9).Value
+        lblModelo.Caption = "Modelo: " & ws.Cells(fila, 10).Value
+        lblSerie.Caption = "Serie: " & ws.Cells(fila, 11).Value
+        lblFechaAdquisicion.Caption = "Fecha Adquisición: " & ws.Cells(fila, 12).Value
+    Else
+        MsgBox "Código de barras no encontrado.", vbExclamation
+    End If
+
+    ' Limpiar el cuadro de texto
+    txtCodigoBarras.Text = ""
+End Sub
+```
+
+### Paso 4: Mostrar el UserForm
+
+1. **Crear un Procedimiento para Mostrar el UserForm:**
+   - Inserta un nuevo módulo en el Editor de VBA y escribe el siguiente código:
+
+```vba
+Sub MostrarFormulario()
+    UserForm1.Show
+End Sub
+```
+
+2. **Asignar el Procedimiento a un Botón en Excel:**
+   - Regresa a Excel, ve a la pestaña `Desarrollador` > `Insertar` > `Botón de Formulario`.
+   - Dibuja el botón en la hoja y asigna la macro `MostrarFormulario`.
+
+### Paso 5: Verificar y Mejorar la Apariencia
+
+- **Personalizar el UserForm:**
+  - Usa colores de fondo, bordes y fuentes que sean atractivos y consistentes con la imagen de tu organización.
+  - Organiza los controles de manera que la interfaz sea intuitiva y fácil de usar.
+
+- **Prueba el Formulario:**
+  - Inicia el UserForm desde el botón en Excel y prueba la funcionalidad introduciendo un código de barras y verificando que la información del producto se muestre correctamente.
+
+Con estos pasos, tendrás un sistema de inventario en Excel que es funcional, vistoso y fácil de usar, utilizando códigos de barras generados aleatoriamente a partir del "Código Patrimonial". Si necesitas más ayuda o ajustes, házmelo saber.

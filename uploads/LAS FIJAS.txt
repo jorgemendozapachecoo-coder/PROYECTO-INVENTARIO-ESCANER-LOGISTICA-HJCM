@@ -1,0 +1,42 @@
+### Flujo del Proyecto de Gestión de Inventario con Lector de Código de Barras
+
+Voy a crear el flujo detallado de tu proyecto de gestión de inventario, incorporando todas las funcionalidades que mencionaste, incluyendo el CRUD, la importación/exportación de Excel, y la detección automática mediante códigos patrimoniales con un lector de código de barras.
+
+#### 1. Inicio de Sesión y Registro de Usuarios
+- **Registro de Usuarios (`register.php`)**: Los nuevos usuarios pueden registrarse proporcionando un nombre de usuario y una contraseña. La contraseña se guarda en la base de datos con un cifrado seguro.
+- **Inicio de Sesión (`login.php`)**: Los usuarios registrados inician sesión ingresando sus credenciales. Si las credenciales son correctas, son dirigidos a la página principal del inventario (`inventory.php`).
+- **Cierre de Sesión (`logout.php`)**: Los usuarios pueden cerrar sesión desde cualquier momento, lo que los redirige a la página de inicio de sesión.
+
+#### 2. Gestión del Inventario (`inventory.php`)
+- **Visualización del Inventario**: El usuario puede ver una tabla con todos los productos disponibles en el inventario. La tabla incluye columnas como `ITEM`, `NOMBRE_AREA`, `CODIGO_FAMILIA_ACTUAL`, `DENOMINACION_BIEN`, `MARCA`, `MODELO`, `SERIE`, `FECHA_ADQUISICION`, `CODIGO_PATRIMONIAL`, `ANTIGÜEDAD`, etc.
+- **Búsqueda de Producto**: El usuario puede buscar productos directamente ingresando o escaneando el código patrimonial mediante un campo de búsqueda.
+  - Si el producto ya existe, se muestra en la tabla, permitiendo actualizar o editar los detalles.
+  - Si el producto no existe, se le permite al usuario agregarlo al inventario con los encabezados respectivamente .
+
+#### 3. CRUD Completo para la Gestión del Inventario
+- **Agregar Producto (`add_product.php`)**: Los usuarios pueden agregar nuevos productos proporcionando toda la información relevante, como `ITEM`, `NOMBRE_AREA`, `TIPO`, `MARCA`, `MODELO`, y `CODIGO_PATRIMONIAL`.
+  - Si el producto ya existe (por ejemplo, mediante el mismo `CODIGO_PATRIMONIAL`), se actualiza automáticamente en la base de datos.
+- **Editar Producto (`edit_product.php`)**: Los usuarios pueden editar la información de un producto existente. Esto se usa si se necesita corregir detalles del producto o actualizar información como la `FECHA_ADQUISICION` o el `TIPO`.
+- **Eliminar Producto (`delete_product.php`)**: Los usuarios pueden eliminar un producto del inventario si ya no es necesario. Antes de eliminar, se pide confirmación al usuario.
+
+#### 4. Importación y Exportación de Inventario
+- **Importar Inventario (`import_inventory.php`)**: Los usuarios pueden importar productos al inventario desde un archivo Excel.
+  - Los encabezados del archivo Excel deben coincidir exactamente con los nombres de las columnas del inventario para asegurar que los datos se importen correctamente.
+  - Los productos que ya existen en el inventario se actualizan con la nueva información.
+- **Exportar Inventario (`export_inventory.php`)**: Los usuarios pueden exportar el inventario completo o filtrado a un archivo Excel.
+  - Los productos con `ANTIGÜEDAD` mayor a 10 años se marcan en rojo para indicar que necesitan revisión o reemplazo.
+
+#### 5. Integración del Lector de Código de Barras
+- **Búsqueda Automática mediante Escaneo**: El lector de código de barras se usa para escanear el `CODIGO_PATRIMONIAL` de un producto. El sistema buscará automáticamente si el producto ya existe en la base de datos.
+  - **Producto Encontrado**: Se muestra la información del producto en la página y se permite actualizar los detalles si es necesario.
+  - **Producto No Encontrado**: Se muestra un formulario con los encabezados del inventario  para agregar un nuevo producto con el `CODIGO_PATRIMONIAL o escaneo de un nuevo codigo de barras ` y que se pueda añadir al inventario final para exportarlo todo en exel .
+
+### Resumen del Flujo
+1. **Inicio de sesión/registro** para los usuarios que desean acceder al sistema.
+2. **Visualización del inventario** completo con la opción de buscar productos mediante el código patrimonial.
+3. **Agregar, editar y eliminar productos** con el CRUD completo.
+4. **Importar y exportar datos** del inventario mediante archivos Excel.
+5. **Escaneo de código de barras** para identificar productos y facilitar la actualización del inventario.
+
+Este flujo asegura que el sistema sea intuitivo, eficiente y permita a los usuarios administrar el inventario de manera efectiva, asegurando la integración de funcionalidades como la importación, exportación y detección automática de productos mediante escaneo.
+

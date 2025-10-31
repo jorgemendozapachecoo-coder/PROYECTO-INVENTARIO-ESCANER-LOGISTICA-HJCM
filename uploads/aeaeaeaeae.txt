@@ -1,0 +1,3 @@
+dar peso al marco teorico php , mysql , 
+mejorar la iteraciones a detalle 
+mejorar la base de datos y incluirlo dentro de la metodologia 

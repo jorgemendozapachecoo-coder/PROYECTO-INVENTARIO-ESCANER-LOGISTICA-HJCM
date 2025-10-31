@@ -1,0 +1,6 @@
+herramientas que se necesitaran para poder implemetar el aplicativo para la tesis “Influencia del Sistema CRM Inteligente para la Fidelización del Cliente en la Panadería Sulca"
+
+
+-android studio (DESARROLLO DEL APLICATIVO)
+-Firebase  (BASE DE DATOS)
+-Python (Desarrollar el Backend)
